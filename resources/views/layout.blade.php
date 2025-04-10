@@ -10,6 +10,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script src="//unpkg.com/alpinejs" defer></script>
     <title>{{ $title ?? 'Find and List jobs' }}</title>
 
 
@@ -24,7 +25,7 @@
     <main class="container mx-auto p-4 mt-4">
         {{-- Display alert messages --}}
         @if (session('success'))
-            <x-alert-blade type="success" message="{{ session('success') }}" />
+            <x-alert-blade type="success" message="{{ session('success') }}" timeout=2000 />
         @endif
         @if (session('error'))
             <x-alert-blade type="error" message="{{ session('error') }}" />

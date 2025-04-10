@@ -3,7 +3,10 @@
 
 <div class="rounded-lg shadow-md bg-white p-4">
     <div class="flex items-center space-between gap-4">
-        <img src="{{ asset('public/images/logos/' . $job->company_logo) }}" alt="..." class="w-14" />
+        @if ($job->company_logo)
+            <img src="{{ asset('storage/' . $job->company_logo) }}" alt="{{ $job->company_name ?? 'Company' }} Logo"
+                {{-- More descriptive alt text --}} class="w-14 h-14 object-contain" {{-- Added h-14 and object-contain for better sizing --}} />
+        @endif
 
         <div>
             <h2 class="text-xl font-semibold">
@@ -25,9 +28,12 @@
                 <span class="text-xs bg-red-500 text-white rounded-full px-2 py-1 ml-2">On-site</span>
             @endif
         </li>
-        <li class="mb-2">
-            <strong>Tags:</strong> {{ ucwords(str_replace(',', ', ', $job->tags)) }}
-        </li>
+        @if ($job->tags)
+            <li class="mb-2">
+                <strong>Tags:</strong> {{ ucwords(str_replace(',', ', ', $job->tags)) }}
+            </li>
+        @endif
+
     </ul>
     <a href="{{ route('jobs.show', $job->id) }}"
         class="block w-full text-center px-5 py-2.5 shadow-sm rounded border text-base font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200">
