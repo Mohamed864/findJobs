@@ -13,10 +13,16 @@ class JobController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     // @desc Show all job listings
+    // @route GET /jobs
+
     //compact used only when i pass more than one parameter
     //with used to pass 1 parameter
     public function index(): view //return type
     {
+
+
         $jobs = Job::all();
 
 
@@ -26,6 +32,11 @@ class JobController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
+
+     // @desc Show create job form
+    // @route GET /jobs/create
+
     public function create(): view
     {
         return view('jobs.create');
@@ -34,6 +45,10 @@ class JobController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+     // @desc Create a new job listing
+    // @route POST /jobs
+
     public function store(Request $request): RedirectResponse
     {
 
@@ -123,6 +138,10 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      */
+
+     // @desc display all job listings
+    // @route GET /jobs/{$id}
+
     public function show(Job $job): view
     {
         return view('jobs.show')->with('job', $job);
@@ -131,6 +150,12 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+
+
+     // @desc Show edit job form
+    // @route GET /jobs/{$id}/edit
+
+
     public function edit(Job $job): view
     {
 
@@ -140,6 +165,11 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
+     // @desc Update a job listing
+    // @route PUT /jobs/{$id}
+
+
     public function update(Request $request, Job $job): RedirectResponse
     {
         $validatedData = $request->validate([
@@ -220,6 +250,12 @@ class JobController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
+     // @desc Delete a job listing
+    // @route DELETE /jobs/{$id}
+
+
+
     public function destroy(JOB $job): RedirectResponse
     {
        //If kogo, then delete it
