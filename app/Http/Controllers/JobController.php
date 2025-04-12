@@ -4,12 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use App\Models\Job;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage; // Import the Storage facade
+use Illuminate\Support\Facades\Auth; // Import the Auth facade
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Models\Job;
+
+
+
 
 class JobController extends Controller
 {
+
+    use AuthorizesRequests;
+
+
     /**
      * Display a listing of the resource.
      */
@@ -37,7 +46,7 @@ class JobController extends Controller
      // @desc Show create job form
     // @route GET /jobs/create
 
-    public function create(): view
+    public function create():view
     {
         return view('jobs.create');
     }
@@ -82,8 +91,10 @@ class JobController extends Controller
         }
         // --------------------------
 
+
+
         // Hardcoded user ID (Consider replacing with auth()->id() if users are logged in)
-        $validatedData['user_id'] = 1;
+        $validatedData['user_id'] = Auth::user()->id; //ide motaw7d
 
         // --- Use Mass Assignment (More concise) ---
         // Add the stored logo path to the data array
@@ -158,6 +169,8 @@ class JobController extends Controller
 
     public function edit(Job $job): view
     {
+        //Check if the user is authorized to edit this job
+        $this->authorize('update',$job);
 
         return view('jobs.edit')->with('job', $job);
     }
@@ -172,6 +185,9 @@ class JobController extends Controller
 
     public function update(Request $request, Job $job): RedirectResponse
     {
+        //Check if the user is authorized to update this job
+        $this->authorize('update',$job);
+
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description'=> 'required|string',
@@ -258,6 +274,9 @@ class JobController extends Controller
 
     public function destroy(JOB $job): RedirectResponse
     {
+        //Check if the user is authorized to delete this job
+        $this->authorize('delete',$job);
+
        //If kogo, then delete it
 
        if($job->company_logo){
