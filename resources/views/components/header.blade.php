@@ -17,6 +17,19 @@
                 <x-nav-link url="/dashboard" :active="request()->is('dashboard')" icon="gauge">Dashboard</x-nav-link>
 
                 <x-logout />
+
+                <div class="flex item-center space-x-3">
+                    <a href="{{ route('dashboard') }}">
+                        @if (Auth::user()->avatar)
+                            <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="{{ Auth::user()->name }}"
+                                class="w-10 h-10 rounded-full">
+                        @else
+                            <img src="{{ asset('storage/avatars/default-avatar.png') }}" alt="{{ Auth::user()->name }}"
+                                class="w-10 h-10 rounded-full">
+                        @endif
+                    </a>
+                </div>
+
                 <x-custom-button url="/jobs/create" icon="edit">Create Job</x-custom-button>
             @else
                 <x-nav-link url="/login" :active="request()->is('login')">Login</x-nav-link>
@@ -40,9 +53,8 @@
 
             <x-nav-link url="/dashboard" :active="request()->is('dashboard')" icon="gauge" :mobile="true">Dashboard</x-nav-link>
             <x-logout />
-
-            <div class="pt-2"></div>
-            <x-custom-button url="/jobs/create" icon="edit" :block="true">Create Job</x-custom-button>
+            <x-custom-button url="/jobs/create" icon="edit" :block="true">Create Job
+            </x-custom-button>
         @else
             <x-nav-link url="/login" :active="request()->is('login')" :mobile="true">Login</x-nav-link>
             <x-nav-link url="/register" :active="request()->is('register')" :mobile="true">Register</x-nav-link>

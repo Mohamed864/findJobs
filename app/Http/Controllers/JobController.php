@@ -32,8 +32,8 @@ class JobController extends Controller
     {
 
 
-        $jobs = Job::all();
-
+        $jobs = Job::paginate(9);
+        //paginate limit the no of jobs but i can scroll across them
 
         return view('jobs.index')->with('jobs', $jobs);
     }
@@ -284,6 +284,12 @@ class JobController extends Controller
 
         }
     $job->delete();
+
+    // Check if request came from dashboard
+    if(request()->query('from') == 'dashboard'){
+        return redirect()->route('dashboard')->with('success', 'Job listing deleted successfully!');
+
+    }
 
     return redirect()->route('jobs.index')->with('success', 'Job listing deleted successfully!');
 
