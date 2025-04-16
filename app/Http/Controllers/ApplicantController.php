@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+
 use Illuminate\Http\RedirectResponse;
 use App\Models\Job;
 use App\Models\Applicant;
 use Illuminate\Support\Facades\Auth;
+
+
+
 
 
 
@@ -58,6 +61,9 @@ class ApplicantController extends Controller
 
 
         $application->save();
+
+
+        //Send email to owner
 
 
 
